@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>نور الهدى | الصفحة الرئيسية</title>
+  <!-- ربط ملف تعريف التطبيق (PWA) -->
+  <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
@@ -52,5 +54,14 @@
       <p><i class="fas fa-heart"></i> تصميم وتطوير: <strong>Momo</strong> — نسأل الله النفع <i class="fas fa-hands-praying"></i></p>
     </div>
   </footer>
+
+  <!-- تسجيل Service Worker لتفعيل PWA -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/Nour-Hoda/service-worker.js')
+        .then(registration => console.log('Service Worker registered with scope:', registration.scope))
+        .catch(error => console.log('Service Worker registration failed:', error));
+    }
+  </script>
 </body>
 </html>
