@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>نور الهدى | معلومات دينية</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .azhar-card {
+      background: #e9e1d1;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .azhar-card h3 i {
+      color: var(--primary);
+    }
+    .contact-number {
+      display: inline-block;
+      background: var(--primary);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-weight: bold;
+      margin: 8px;
+      text-decoration: none;
+    }
+    .contact-number i {
+      margin-left: 8px;
+    }
+    .facts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .fact-card {
+      background: white;
+      border-radius: 20px;
+      padding: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      transition: 0.2s;
+      border: 1px solid #f0e4d0;
+    }
+    .fact-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+    .fact-card h4 {
+      color: var(--primary);
+      margin-bottom: 8px;
+      font-size: 1.1rem;
+    }
+    .fact-card p {
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    .section-subtitle {
+      font-size: 1.3rem;
+      color: var(--primary-dark);
+      margin: 30px 0 15px;
+      border-right: 4px solid var(--secondary);
+      padding-right: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="container">
+      <div class="logo"><i class="fas fa-mosque"></i> نور الهدى</div>
+      <div class="nav-links">
+        <a href="index.html">الرئيسية</a>
+        <a href="prayer.html">الصلاة</a>
+        <a href="tasbih.html">تسبيح</a>
+        <a href="adhkar.html">الأذكار</a>
+        <a href="hadith.html">الحديث</a>
+        <a href="quran.html">المصحف</a>
+        <a href="companions.html">الصحابة</a>
+        <a href="knowledge.html">معلومات دينية</a>
+        <a href="newmuslim.html">جدد إسلامك</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <section id="knowledge">
+      <h2 class="section-title"><i class="fas fa-book-open"></i> معلومات دينية</h2>
+      
+      <!-- الأزهر الشريف -->
+      <div class="card azhar-card">
+        <h3><i class="fas fa-phone-alt"></i> مشيخة الأزهر الشريف - خدمة الفتوى</h3>
+        <p>للاستفسارات الشرعية والدينية، يمكنكم التواصل مع الأزهر الشريف عبر الأرقام التالية:</p>
+        <a href="tel:19930" class="contact-number"><i class="fas fa-phone"></i> 19930</a>
+        <a href="tel:19477" class="contact-number"><i class="fas fa-phone"></i> 19477</a>
+        <p style="margin-top: 12px;"><i class="fas fa-globe"></i> الموقع الرسمي: <a href="https://www.azhar.eg" target="_blank" style="color: var(--primary);">www.azhar.eg</a></p>
+        <p><i class="fas fa-envelope"></i> البريد الإلكتروني: <a href="mailto:info@azhar.eg" style="color: var(--primary);">info@azhar.eg</a></p>
+      </div>
+
+      <!-- البطاقات الأساسية الأربعة (محفوظة) -->
+      <div class="grid-2">
+        <div class="card"><h3>📖 أركان الإسلام الخمسة</h3><p>1- الشهادتان  2- إقام الصلاة  3- إيتاء الزكاة  4- صوم رمضان  5- حج البيت لمن استطاع إليه سبيلاً.</p></div>
+        <div class="card">
+          <h3>💧 خطوات الوضوء (بترتيبها)</h3>
+          <ul class="wudu-steps">
+            <li><i class="fas fa-water"></i> 1. النية (في القلب)</li>
+            <li><i class="fas fa-hand-paper"></i> 2. غسل الكفين ثلاثاً</li>
+            <li><i class="fas fa-tint"></i> 3. المضمضة والاستنشاق ثلاثاً</li>
+            <li><i class="fas fa-smile"></i> 4. غسل الوجه ثلاثاً</li>
+            <li><i class="fas fa-hand-peace"></i> 5. غسل اليدين إلى المرفقين ثلاثاً (الأيمن ثم الأيسر)</li>
+            <li><i class="fas fa-head-side-medical"></i> 6. مسح الرأس كله مرة واحدة</li>
+            <li><i class="fas fa-ear-deaf"></i> 7. مسح الأذنين (داخلهما وخارجهما)</li>
+            <li><i class="fas fa-shoe-prints"></i> 8. غسل الرجلين إلى الكعبين ثلاثاً (الأيمن ثم الأيسر)</li>
+            <li><i class="fas fa-check-circle"></i> 9. الترتيب والموالاة</li>
+          </ul>
+          <p>قال النبي ﷺ: «من توضأ فأحسن الوضوء خرجت خطاياه من جسده حتى تخرج من تحت أظفاره» (مسلم).</p>
+        </div>
+        <div class="card"><h3>🕌 أهمية الصلاة</h3><p>أول ما يحاسب عليه العبد يوم القيامة الصلاة، فإن صلحت صلح سائر العمل.</p></div>
+        <div class="card"><h3>✨ الاستغفار</h3><p>من لزم الاستغفار جعل الله له من كل ضيق مخرجاً ورزقه من حيث لا يحتسب.</p></div>
+      </div>
+
+      <!-- 35+ معلومة دينية إضافية -->
+      <h3 class="section-subtitle"><i class="fas fa-star-of-life"></i> معلومات متنوعة عن الإسلام</h3>
+      <div class="facts-grid">
+        <div class="fact-card"><h4>📌 أول ما نزل من القرآن</h4><p>أول ما نزل من القرآن: "اقرأ باسم ربك الذي خلق" (سورة العلق).</p></div>
+        <div class="fact-card"><h4>📌 آخر ما نزل من القرآن</h4><p>آخر آية نزلت: "واتقوا يوماً ترجعون فيه إلى الله" (سورة البقرة). وقيل آية الربا.</p></div>
+        <div class="fact-card"><h4>📌 عدد سور القرآن</h4><p>114 سورة، أولها الفاتحة وآخرها الناس.</p></div>
+        <div class="fact-card"><h4>📌 عدد آيات القرآن</h4><p>أكثر من 6236 آية (باختلاف العدّ).</p></div>
+        <div class="fact-card"><h4>📌 اسم النبي ﷺ في القرآن</h4><p>وُرد اسمه صراحة 4 مرات: محمد وأحمد.</p></div>
+        <div class="fact-card"><h4>📌 أفضل الأسماء عند الله</h4><p>عبد الله وعبد الرحمن، كما في الحديث الشريف.</p></div>
+        <div class="fact-card"><h4>📌 الصدقة الجارية</h4><p>من مات وعنده صدقة جارية (علم ينتفع به، ولد صالح يدعو له، وقف) انتفع بعد موته.</p></div>
+        <div class="fact-card"><h4>📌 فضل يوم عرفة</h4><p>صيامه يكفر سنتين: السنة الماضية والقادمة.</p></div>
+        <div class="fact-card"><h4>📌 ليلة القدر</h4><p>خير من ألف شهر، تُرجى في العشر الأواخر من رمضان.</p></div>
+        <div class="fact-card"><h4>📌 أول مسجد بني في الإسلام</h4><p>مسجد قباء في المدينة المنورة.</p></div>
+        <div class="fact-card"><h4>📌 أول من أذن في الإسلام</h4><p>بلال بن رباح رضي الله عنه.</p></div>
+        <div class="fact-card"><h4>📌 السورة التي تسمى قلب القرآن</h4><p>سورة يس.</p></div>
+        <div class="fact-card"><h4>📌 السورة التي تسمى عروس القرآن</h4><p>سورة الرحمن.</p></div>
+        <div class="fact-card"><h4>📌 صلاة التوبة</h4><p>إذا أذنب العبد فتوضأ وصلى ركعتين واستغفر، تاب الله عليه.</p></div>
+        <div class="fact-card"><h4>📌 ذكر الجنة في القرآن</h4><p>ذُكرت الجنة باسمها أكثر من 100 مرة.</p></div>
+        <div class="fact-card"><h4>📌 ذكر النار في القرآن</h4><p>ذُكرت النار بأسماء متعددة: جهنم، لظى، الحطمة، سقر، الجحيم.</p></div>
+        <div class="fact-card"><h4>📌 أعظم آية في القرآن</h4><p>آية الكرسي (البقرة: 255).</p></div>
+        <div class="fact-card"><h4>📌 أول من أسلم من الرجال</h4><p>أبو بكر الصديق رضي الله عنه.</p></div>
+        <div class="fact-card"><h4>📌 أول من أسلم من النساء</h4><p>خديجة بنت خويلد رضي الله عنها.</p></div>
+        <div class="fact-card"><h4>📌 أول من أسلم من الصبيان</h4><p>علي بن أبي طالب رضي الله عنه.</p></div>
+        <div class="fact-card"><h4>📌 أول غزوة غزاها النبي ﷺ</h4><p>غزوة الأبواء (ودان).</p></div>
+        <div class="fact-card"><h4>📌 أول معركة كبرى</h4><p>غزوة بدر الكبرى في رمضان السنة الثانية للهجرة.</p></div>
+        <div class="fact-card"><h4>📌 الهجرة النبوية</h4><p>بدأت في 12 ربيع الأول من السنة الأولى للهجرة، وهي بداية التقويم الهجري.</p></div>
+        <div class="fact-card"><h4>📌 عدد الأنبياء والرسل</h4><p>ذكر في القرآن 25 نبياً ورسولاً، وأرسل الله 124 ألف نبي.</p></div>
+        <div class="fact-card"><h4>📌 أول نبي</h4><p>آدم عليه السلام.</p></div>
+        <div class="fact-card"><h4>📌 خاتم الأنبياء</h4><p>محمد ﷺ.</p></div>
+        <div class="fact-card"><h4>📌 فضل صلاة الفجر والعصر</h4><p>من صلى الفجر فهو في ذمة الله، ومن صلى العصر دخل الجنة.</p></div>
+        <div class="fact-card"><h4>📌 فضل صلاة الجماعة</h4><p>تعدل سبعاً وعشرين درجة.</p></div>
+        <div class="fact-card"><h4>📌 تحية المسجد</h4><p>إذا دخل أحدكم المسجد فلا يجلس حتى يصلي ركعتين.</p></div>
+        <div class="fact-card"><h4>📌 فضل الصلاة على النبي</h4><p>من صلى عليَّ صلاة صلى الله عليه بها عشراً.</p></div>
+        <div class="fact-card"><h4>📌 فضل قراءة سورة الإخلاص</h4><p>تعدل ثلث القرآن.</p></div>
+        <div class="fact-card"><h4>📌 فضل الصدقة</h4><p>الصدقة تطفئ الخطيئة كما تطفئ الماء النار.</p></div>
+        <div class="fact-card"><h4>📌 فضل صلة الرحم</h4><p>تزيد في العمر وتبارك في الرزق.</p></div>
+        <div class="fact-card"><h4>📌 فضل كلمة التوحيد</h4><p>من كان آخر كلامه لا إله إلا الله دخل الجنة.</p></div>
+        <div class="fact-card"><h4>📌 أول ما خلق الله</h4><p>القلم، ثم الجنة، ثم السموات والأرض.</p></div>
+        <div class="fact-card"><h4>📌 خاتم النبيين</h4><p>محمد ﷺ خاتم الأنبياء والمرسلين.</p></div>
+        <div class="fact-card"><h4>📌 اليوم الموعود</h4><p>يوم القيامة، وهو يوم الحساب والجزاء.</p></div>
+      </div>
+      <p style="margin-top: 20px; text-align: center; font-size: 0.9rem;"><i class="fas fa-info-circle"></i> نرجو أن تنفع هذه المعلومات، ونذكر بأن العلم الشرعي يؤخذ من أهله.</p>
+    </section>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p><i class="fas fa-heart"></i> تصميم وتطوير: <strong>Momo</strong> — نسأل الله النفع <i class="fas fa-hands-praying"></i></p>
+    </div>
+  </footer>
+</body>
+</html>

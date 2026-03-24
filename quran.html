@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>نور الهدى | المصحف الشريف - بصوت المنشاوي</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .audio-btn {
+      background: none;
+      border: none;
+      color: var(--primary);
+      font-size: 1.2rem;
+      cursor: pointer;
+      margin-right: 5px;
+      transition: 0.2s;
+      padding: 5px;
+      border-radius: 50%;
+    }
+    .audio-btn:hover {
+      color: var(--secondary);
+      transform: scale(1.05);
+    }
+    .full-surah-btn {
+      width: 100%;
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 50px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-bottom: 20px;
+      font-size: 1rem;
+      transition: 0.2s;
+    }
+    .full-surah-btn.playing {
+      background: #b97f10;
+    }
+    .full-surah-btn i {
+      margin-left: 8px;
+    }
+
+    /* الورد اليومي */
+    .daily-plan {
+      background: var(--card-bg);
+      border-radius: 28px;
+      padding: 24px;
+      margin-top: 40px;
+      border: 1px solid var(--border-light);
+    }
+    .plan-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 20px;
+      align-items: flex-end;
+    }
+    .plan-control {
+      flex: 1;
+      min-width: 150px;
+    }
+    .plan-control label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: var(--primary-dark);
+    }
+    .plan-control select, .plan-control input {
+      width: 100%;
+      padding: 8px 12px;
+      border-radius: 40px;
+      border: 1px solid #ddd;
+      font-family: inherit;
+    }
+    .plan-control button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 40px;
+      cursor: pointer;
+      font-weight: 600;
+      width: 100%;
+    }
+    .progress-bar-container {
+      background: #e9dbc3;
+      border-radius: 30px;
+      overflow: hidden;
+      margin: 15px 0;
+    }
+    .progress-bar {
+      background: var(--primary);
+      height: 20px;
+      width: 0%;
+      transition: width 0.3s;
+    }
+    .today-progress {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    .mark-btn {
+      background: var(--secondary);
+      color: var(--primary-dark);
+      border: none;
+      padding: 8px 16px;
+      border-radius: 40px;
+      cursor: pointer;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+    .mark-btn.completed {
+      background: var(--primary);
+      color: white;
+    }
+    .stop-input {
+      display: flex;
+      gap: 10px;
+      margin: 15px 0;
+      flex-wrap: wrap;
+    }
+    .stop-input input {
+      flex: 2;
+      padding: 8px 12px;
+      border-radius: 40px;
+      border: 1px solid #ddd;
+    }
+    .stop-input button {
+      background: var(--primary-dark);
+      padding: 8px 16px;
+    }
+    .current-stop {
+      background: #f4f0e2;
+      padding: 8px 12px;
+      border-radius: 40px;
+      margin: 10px 0;
+      font-size: 0.9rem;
+    }
+    .weekly-log {
+      margin-top: 30px;
+      border-top: 1px solid var(--border-light);
+      padding-top: 20px;
+    }
+    .weekly-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+      margin-top: 15px;
+    }
+    .log-entry {
+      background: #fefaf0;
+      border-radius: 20px;
+      padding: 10px;
+      font-size: 0.85rem;
+      border: 1px solid #e9dbc3;
+    }
+    .log-date {
+      font-weight: bold;
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="container">
+      <div class="logo"><i class="fas fa-mosque"></i> نور الهدى</div>
+      <div class="nav-links">
+        <a href="index.html">الرئيسية</a>
+        <a href="prayer.html">الصلاة</a>
+        <a href="tasbih.html">تسبيح</a>
+        <a href="adhkar.html">الأذكار</a>
+        <a href="hadith.html">الحديث</a>
+        <a href="quran.html">المصحف</a>
+        <a href="companions.html">الصحابة</a>
+        <a href="knowledge.html">معلومات دينية</a>
+        <a href="newmuslim.html">جدد إسلامك</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <section id="quran">
+      <h2 class="section-title"><i class="fas fa-quran"></i> المصحف الشريف - بصوت الشيخ محمد صديق المنشاوي</h2>
+      <div class="quran-container">
+        <div class="search-box">
+          <input type="text" id="surahSearch" placeholder="ابحث باسم السورة أو رقمها (مثال: 2 أو البقرة)">
+          <button id="searchBtn"><i class="fas fa-search"></i> بحث</button>
+          <button id="resetSearchBtn"><i class="fas fa-times"></i> إظهار الكل</button>
+        </div>
+        <select id="suraSelect" class="sura-select"><option>جاري تحميل السور...</option></select>
+        <button id="playFullSurahBtn" class="full-surah-btn"><i class="fas fa-headphones"></i> استماع السورة كاملة</button>
+        <div id="quranContent" class="verses-grid"><div class="quran-loading">اختر سورة لقراءة الآيات</div></div>
+        <p style="margin-top:12px; text-align:center; font-size:0.8rem;">
+          📖 نصوص القرآن الكريم برواية حفص عن عاصم | 🎧 استمع للآيات بصوت الشيخ محمد صديق المنشاوي
+        </p>
+      </div>
+    </section>
+
+    <!-- الورد اليومي -->
+    <div class="daily-plan">
+      <h3><i class="fas fa-calendar-alt"></i> الورد اليومي من القرآن</h3>
+      <div class="plan-controls">
+        <div class="plan-control">
+          <label>نوع الورد</label>
+          <select id="planType">
+            <option value="pages">عدد الصفحات</option>
+            <option value="juz">عدد الأجزاء (1 جزء = 20 صفحة)</option>
+          </select>
+        </div>
+        <div class="plan-control">
+          <label>الهدف اليومي</label>
+          <input type="number" id="dailyTarget" value="10" min="1" step="1">
+        </div>
+        <div class="plan-control">
+          <label>&nbsp;</label>
+          <button id="setPlanBtn">تحديث الخطة</button>
+        </div>
+        <div class="plan-control">
+          <label>&nbsp;</label>
+          <button id="nextDayBtn" style="background:#b97f10;"><i class="fas fa-forward"></i> اليوم التالي</button>
+        </div>
+      </div>
+
+      <div class="progress-bar-container">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+      <div class="today-progress">
+        <span>المقرأ اليوم: <span id="readSoFar">0</span> <span id="unitLabel">صفحة</span></span>
+        <span>المتبقي: <span id="remaining">0</span> <span id="remainingLabel">صفحة</span></span>
+      </div>
+      <button id="markReadBtn" class="mark-btn"><i class="fas fa-check-circle"></i> أنجزت اليوم</button>
+
+      <div class="stop-input">
+        <input type="text" id="stopLocation" placeholder="مثال: صفحة 50 / سورة البقرة آية 255">
+        <button id="saveStopBtn" class="mark-btn" style="background:var(--primary);">تسجيل مكان التوقف</button>
+      </div>
+      <div id="currentStopDisplay" class="current-stop"><i class="fas fa-bookmark"></i> لم يتم تسجيل مكان للتوقف بعد</div>
+
+      <div class="weekly-log">
+        <h4><i class="fas fa-chart-line"></i> السجل الأسبوعي (آخر 7 أيام)</h4>
+        <div id="weeklyLog" class="weekly-grid">
+          <p style="grid-column:1/-1;">لا يوجد سجل بعد، قم بتسجيل إنجازاتك اليومية.</p>
+        </div>
+      </div>
+      <p style="margin-top: 12px; font-size:0.85rem;"><i class="fas fa-info-circle"></i> اضغط "اليوم التالي" لإنهاء اليوم الحالي وبدء يوم جديد. يتم حفظ السجل تلقائياً.</p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p><i class="fas fa-heart"></i> تصميم وتطوير: <strong>Momo</strong> — نسأل الله النفع <i class="fas fa-hands-praying"></i></p>
+    </div>
+  </footer>
+
+  <script>
+    // ---------- المصحف (المنشاوي) ----------
+    let suraList = [];
+    let filteredSuraList = [];
+    let currentSuraNumber = null;
+    let currentAyahs = [];
+    let isPlayingFullSurah = false;
+    let currentFullSurahIndex = 0;
+    let currentAudio = null;
+
+    const suraSelect = document.getElementById("suraSelect");
+    const searchInput = document.getElementById("surahSearch");
+    const searchBtn = document.getElementById("searchBtn");
+    const resetSearchBtn = document.getElementById("resetSearchBtn");
+    const playFullSurahBtn = document.getElementById("playFullSurahBtn");
+
+    async function loadSuraList() {
+      try {
+        const res = await fetch("https://api.alquran.cloud/v1/surah");
+        const data = await res.json();
+        if (data.code === 200) {
+          suraList = data.data;
+          filteredSuraList = [...suraList];
+          updateSuraSelect();
+        }
+      } catch (e) {
+        suraSelect.innerHTML = "<option>خطأ في التحميل</option>";
+      }
+    }
+
+    function updateSuraSelect() {
+      suraSelect.innerHTML = '<option value="">-- اختر السورة --</option>';
+      filteredSuraList.forEach(s => {
+        const option = document.createElement("option");
+        option.value = s.number;
+        option.textContent = `${s.number}. ${s.name} (${s.englishName})`;
+        suraSelect.appendChild(option);
+      });
+    }
+
+    function filterSuraList() {
+      const query = searchInput.value.trim().toLowerCase();
+      if (!query) {
+        filteredSuraList = [...suraList];
+      } else {
+        filteredSuraList = suraList.filter(s => {
+          const numMatch = s.number.toString() === query;
+          const nameMatch = s.name.toLowerCase().includes(query) || s.englishName.toLowerCase().includes(query);
+          return numMatch || nameMatch;
+        });
+      }
+      updateSuraSelect();
+      if (filteredSuraList.length === 1 && query) {
+        suraSelect.value = filteredSuraList[0].number;
+        loadSura(filteredSuraList[0].number);
+      }
+    }
+
+    searchBtn.addEventListener("click", filterSuraList);
+    resetSearchBtn.addEventListener("click", () => {
+      searchInput.value = "";
+      filteredSuraList = [...suraList];
+      updateSuraSelect();
+      suraSelect.value = "";
+      document.getElementById("quranContent").innerHTML = "<div class='quran-loading'>اختر سورة لقراءة الآيات</div>";
+      stopFullSurah();
+    });
+
+    function playAyahAudio(audioUrl, autoNext = false) {
+      if (!audioUrl) {
+        if (autoNext) playNextAyah();
+        return;
+      }
+      if (currentAudio) currentAudio.pause();
+      const audio = new Audio(audioUrl);
+      currentAudio = audio;
+      audio.onerror = () => {
+        console.error("فشل تحميل:", audioUrl);
+        if (autoNext) playNextAyah();
+        else alert("فشل تحميل الصوت. تأكد من اتصالك بالإنترنت.");
+      };
+      if (autoNext) audio.onended = () => playNextAyah();
+      audio.play().catch(err => {
+        console.error(err);
+        if (!autoNext) alert("تعذر تشغيل الصوت.");
+        else playNextAyah();
+      });
+    }
+
+    function playNextAyah() {
+      if (!isPlayingFullSurah) return;
+      if (currentFullSurahIndex < currentAyahs.length) {
+        const ayah = currentAyahs[currentFullSurahIndex];
+        currentFullSurahIndex++;
+        playAyahAudio(ayah.audio, true);
+      } else {
+        stopFullSurah();
+        alert("انتهت تلاوة السورة كاملة 🌟");
+      }
+    }
+
+    function startFullSurah() {
+      if (!currentAyahs || currentAyahs.length === 0) {
+        alert("الرجاء اختيار سورة أولاً");
+        return;
+      }
+      if (isPlayingFullSurah) {
+        stopFullSurah();
+        return;
+      }
+      isPlayingFullSurah = true;
+      currentFullSurahIndex = 0;
+      playFullSurahBtn.classList.add("playing");
+      playFullSurahBtn.innerHTML = '<i class="fas fa-stop"></i> إيقاف السورة';
+      playNextAyah();
+    }
+
+    function stopFullSurah() {
+      isPlayingFullSurah = false;
+      currentFullSurahIndex = 0;
+      if (currentAudio) currentAudio.pause();
+      playFullSurahBtn.classList.remove("playing");
+      playFullSurahBtn.innerHTML = '<i class="fas fa-headphones"></i> استماع السورة كاملة';
+    }
+
+    playFullSurahBtn.addEventListener("click", startFullSurah);
+
+    async function loadSura(suraNumber) {
+      stopFullSurah();
+      currentSuraNumber = suraNumber;
+      const container = document.getElementById("quranContent");
+      container.innerHTML = '<div class="quran-loading">⏳ جاري تحميل الآيات...</div>';
+      try {
+        const res = await fetch(`https://api.alquran.cloud/v1/surah/${suraNumber}/ar.minshawi`);
+        const data = await res.json();
+        if (data.code === 200) {
+          const ayahs = data.data.ayahs;
+          currentAyahs = ayahs.map(ayah => ({
+            number: ayah.numberInSurah,
+            text: ayah.text,
+            audio: ayah.audio
+          }));
+          let html = "";
+          for (let i = 0; i < ayahs.length; i += 2) {
+            const a1 = ayahs[i];
+            html += `<div class="ayah-item">
+              <span class="ayah-number">${a1.numberInSurah}</span>
+              <span class="ayah-text">${a1.text}</span>
+              <button class="audio-btn" data-audio="${a1.audio}"><i class="fas fa-headphones"></i></button>
+            </div>`;
+            if (ayahs[i + 1]) {
+              const a2 = ayahs[i + 1];
+              html += `<div class="ayah-item">
+                <span class="ayah-number">${a2.numberInSurah}</span>
+                <span class="ayah-text">${a2.text}</span>
+                <button class="audio-btn" data-audio="${a2.audio}"><i class="fas fa-headphones"></i></button>
+              </div>`;
+            }
+          }
+          container.innerHTML = html;
+          document.querySelectorAll(".audio-btn").forEach(btn => {
+            btn.addEventListener("click", () => {
+              const audioUrl = btn.getAttribute("data-audio");
+              if (isPlayingFullSurah) stopFullSurah();
+              playAyahAudio(audioUrl, false);
+            });
+          });
+        } else {
+          container.innerHTML = "<div>خطأ في تحميل الآيات</div>";
+        }
+      } catch (err) {
+        container.innerHTML = "<div>حدث خطأ في الاتصال بالخادم.</div>";
+      }
+    }
+
+    suraSelect.addEventListener("change", (e) => {
+      const val = e.target.value;
+      if (val) loadSura(val);
+      else {
+        document.getElementById("quranContent").innerHTML = "<div class='quran-loading'>اختر سورة لقراءة الآيات</div>";
+        stopFullSurah();
+      }
+    });
+
+    loadSuraList();
+
+    // ---------- الورد اليومي المتقدم ----------
+    const planTypeSelect = document.getElementById("planType");
+    const dailyTargetInput = document.getElementById("dailyTarget");
+    const setPlanBtn = document.getElementById("setPlanBtn");
+    const markReadBtn = document.getElementById("markReadBtn");
+    const nextDayBtn = document.getElementById("nextDayBtn");
+    const readSoFarSpan = document.getElementById("readSoFar");
+    const remainingSpan = document.getElementById("remaining");
+    const unitLabel = document.getElementById("unitLabel");
+    const remainingLabel = document.getElementById("remainingLabel");
+    const progressBar = document.getElementById("progressBar");
+    const stopLocationInput = document.getElementById("stopLocation");
+    const saveStopBtn = document.getElementById("saveStopBtn");
+    const currentStopDisplay = document.getElementById("currentStopDisplay");
+    const weeklyLogDiv = document.getElementById("weeklyLog");
+
+    let currentTarget = 10;
+    let currentUnit = "pages";
+    let completedToday = 0;
+    let currentStop = "";
+
+    // بنية السجل الأسبوعي: مصفوفة تحتوي آخر 7 أيام (كل يوم كائن)
+    let weeklyHistory = [];
+
+    function loadAllData() {
+      // تحميل السجل الأسبوعي
+      const storedHistory = localStorage.getItem("quranWeeklyHistory");
+      if (storedHistory) {
+        try {
+          weeklyHistory = JSON.parse(storedHistory);
+        } catch(e) { weeklyHistory = []; }
+      } else {
+        weeklyHistory = [];
+      }
+
+      // تحميل بيانات اليوم الحالي
+      const storedToday = localStorage.getItem("quranToday");
+      if (storedToday) {
+        try {
+          const today = JSON.parse(storedToday);
+          currentUnit = today.unit || "pages";
+          currentTarget = today.target || 10;
+          completedToday = today.completed || 0;
+          currentStop = today.stop || "";
+          planTypeSelect.value = currentUnit === "pages" ? "pages" : "juz";
+          dailyTargetInput.value = currentTarget;
+          stopLocationInput.value = currentStop;
+        } catch(e) {}
+      } else {
+        // افتراضي
+        currentUnit = "pages";
+        currentTarget = 10;
+        completedToday = 0;
+        currentStop = "";
+        planTypeSelect.value = "pages";
+        dailyTargetInput.value = 10;
+      }
+      updateUI();
+      updateStopDisplay();
+      renderWeeklyLog();
+    }
+
+    function saveToday() {
+      const todayData = {
+        unit: currentUnit,
+        target: currentTarget,
+        completed: completedToday,
+        stop: currentStop,
+        lastUpdated: new Date().toISOString()
+      };
+      localStorage.setItem("quranToday", JSON.stringify(todayData));
+    }
+
+    function saveWeeklyHistory() {
+      localStorage.setItem("quranWeeklyHistory", JSON.stringify(weeklyHistory));
+    }
+
+    function updateUI() {
+      const isPages = currentUnit === "pages";
+      unitLabel.innerText = isPages ? "صفحة" : "جزء";
+      remainingLabel.innerText = isPages ? "صفحة" : "جزء";
+      readSoFarSpan.innerText = completedToday;
+      const remaining = Math.max(0, currentTarget - completedToday);
+      remainingSpan.innerText = remaining;
+      const percent = (completedToday / currentTarget) * 100;
+      progressBar.style.width = percent + "%";
+      markReadBtn.classList.toggle("completed", completedToday >= currentTarget);
+      saveToday();
+    }
+
+    function updateStopDisplay() {
+      if (currentStop && currentStop.trim() !== "") {
+        currentStopDisplay.innerHTML = `<i class="fas fa-bookmark"></i> آخر توقف: ${currentStop}`;
+      } else {
+        currentStopDisplay.innerHTML = `<i class="fas fa-bookmark"></i> لم يتم تسجيل مكان للتوقف بعد`;
+      }
+    }
+
+    function renderWeeklyLog() {
+      if (!weeklyHistory.length) {
+        weeklyLogDiv.innerHTML = '<p style="grid-column:1/-1;">لا يوجد سجل بعد، قم بتسجيل إنجازاتك اليومية.</p>';
+        return;
+      }
+      // عرض آخر 7 أيام (الأحدث أولاً)
+      const last7 = [...weeklyHistory].reverse().slice(0,7);
+      let html = '';
+      last7.forEach(day => {
+        const unitText = day.unit === "pages" ? "صفحة" : "جزء";
+        const status = day.completed >= day.target ? "✅ مكتمل" : "⏳ غير مكتمل";
+        html += `
+          <div class="log-entry">
+            <div class="log-date">📅 ${day.date}</div>
+            <div>الهدف: ${day.target} ${unitText}</div>
+            <div>المنجز: ${day.completed} ${unitText}</div>
+            <div>مكان التوقف: ${day.stop || "غير مسجل"}</div>
+            <div>${status}</div>
+          </div>
+        `;
+      });
+      weeklyLogDiv.innerHTML = html;
+    }
+
+    function pushTodayToHistory() {
+      const todayDate = new Date().toLocaleDateString("ar-EG");
+      // التحقق من عدم تكرار نفس اليوم في السجل
+      const exists = weeklyHistory.some(day => day.date === todayDate);
+      if (!exists) {
+        weeklyHistory.push({
+          date: todayDate,
+          unit: currentUnit,
+          target: currentTarget,
+          completed: completedToday,
+          stop: currentStop
+        });
+        // الحفاظ على آخر 30 يوم فقط (لكن نعرض آخر 7)
+        if (weeklyHistory.length > 30) weeklyHistory.shift();
+        saveWeeklyHistory();
+        renderWeeklyLog();
+      }
+    }
+
+    function nextDay() {
+      // إنهاء اليوم الحالي: تسجيله في السجل
+      pushTodayToHistory();
+      // إعادة تعيين اليوم الجديد بنفس الخطة ولكن إعادة المنجز والصفر
+      completedToday = 0;
+      currentStop = "";
+      stopLocationInput.value = "";
+      updateUI();
+      updateStopDisplay();
+      saveToday();
+      renderWeeklyLog();
+      alert("تم الانتقال إلى اليوم التالي. خطتك اليومية محفوظة بنفس الهدف.");
+    }
+
+    // الأحداث
+    setPlanBtn.addEventListener("click", () => {
+      currentUnit = planTypeSelect.value === "pages" ? "pages" : "juz";
+      let newTarget = parseInt(dailyTargetInput.value, 10);
+      if (isNaN(newTarget) || newTarget < 1) newTarget = 1;
+      currentTarget = newTarget;
+      completedToday = 0;  // إعادة تعيين المنجز عند تغيير الخطة
+      updateUI();
+      saveToday();
+    });
+
+    markReadBtn.addEventListener("click", () => {
+      if (completedToday >= currentTarget) {
+        alert("لقد أتممت ورد اليوم بالفعل! بارك الله فيك.");
+        return;
+      }
+      completedToday = currentTarget;
+      updateUI();
+      saveToday();
+    });
+
+    saveStopBtn.addEventListener("click", () => {
+      const newStop = stopLocationInput.value.trim();
+      if (newStop) {
+        currentStop = newStop;
+        updateStopDisplay();
+        saveToday();
+        alert("تم تسجيل مكان التوقف بنجاح.");
+      } else {
+        alert("الرجاء إدخال مكان التوقف (مثال: صفحة 50 / سورة البقرة آية 255)");
+      }
+    });
+
+    nextDayBtn.addEventListener("click", nextDay);
+
+    // بدء التحميل
+    loadAllData();
+
+    // التحقق من تغير اليوم تلقائياً (إذا مر يوم ولم يضغط المستخدم)
+    function checkDateChange() {
+      const storedTodayData = localStorage.getItem("quranToday");
+      if (storedTodayData) {
+        const todayObj = JSON.parse(storedTodayData);
+        if (todayObj.lastUpdated) {
+          const lastDate = new Date(todayObj.lastUpdated).toDateString();
+          const nowDate = new Date().toDateString();
+          if (lastDate !== nowDate) {
+            // مر يوم كامل، ننقل اليوم القديم للسجل ونبدأ يوماً جديداً
+            // لكننا نحتاج لتجنب تكرار النقل عند كل فتح. نستخدم علامة.
+            const alreadyPushed = localStorage.getItem("dayPushedForToday");
+            if (!alreadyPushed) {
+              pushTodayToHistory();
+              completedToday = 0;
+              currentStop = "";
+              stopLocationInput.value = "";
+              updateUI();
+              updateStopDisplay();
+              saveToday();
+              localStorage.setItem("dayPushedForToday", "true");
+              renderWeeklyLog();
+            }
+          } else {
+            // نفس اليوم، نزيل العلامة إذا كانت موجودة
+            localStorage.removeItem("dayPushedForToday");
+          }
+        }
+      }
+    }
+    checkDateChange();
+    window.addEventListener("focus", () => {
+      checkDateChange();
+      loadAllData(); // إعادة تحميل البيانات عند العودة للصفحة
+    });
+  </script>
+</body>
+</html>

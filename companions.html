@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>نور الهدى | قصص الصحابة</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* تحسين عرض القصة */
+    .story-item p {
+      margin: 8px 0;
+      line-height: 1.7;
+    }
+    .story-item .detail {
+      font-weight: 500;
+      color: var(--primary-dark);
+      margin-top: 10px;
+    }
+    .story-item .detail i {
+      width: 24px;
+      margin-left: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="container">
+      <div class="logo"><i class="fas fa-mosque"></i> نور الهدى</div>
+      <div class="nav-links">
+        <a href="index.html">الرئيسية</a>
+        <a href="prayer.html">الصلاة</a>
+        <a href="tasbih.html">تسبيح</a>
+        <a href="adhkar.html">الأذكار</a>
+        <a href="hadith.html">الحديث</a>
+        <a href="quran.html">المصحف</a>
+        <a href="companions.html">الصحابة</a>
+        <a href="knowledge.html">معلومات دينية</a>
+        <a href="newmuslim.html">جدد إسلامك</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <section id="stories">
+      <h2 class="section-title"><i class="fas fa-users"></i> قصص الصحابة رضوان الله عليهم</h2>
+      <div class="companions-list" id="companionsList"></div>
+      <div class="stories-display" id="storiesDisplay">
+        <p style="text-align:center;">اضغط على أحد الصحابة لعرض سيرته</p>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p><i class="fas fa-heart"></i> تصميم وتطوير: <strong>Momo</strong> — نسأل الله النفع <i class="fas fa-hands-praying"></i></p>
+    </div>
+  </footer>
+
+  <script>
+    const companionsData = [
+      { 
+        name: "أبو بكر الصديق", icon: "fa-user", 
+        birth: "قبل الفيل بسنتين", death: "13 هـ",
+        battles: "الغزوات كلها مع النبي، قاد سرية",
+        story: "كان أول من آمن من الرجال، ولقب بالصديق لأنه صدق النبي في الإسراء. أنفق ماله في سبيل الله، ورفيق الهجرة، وثبت الأمة بعد وفاة النبي. توفي عن 63 سنة. العبرة: الصدق والثبات."
+      },
+      { 
+        name: "عمر بن الخطاب", icon: "fa-user",
+        birth: "قبل الفيل بـ 13 عاماً", death: "23 هـ",
+        battles: "كل الغزوات بعد إسلامه، شهد بدراً وأحداً والخندق",
+        story: "أسلم فكان عزاً للإسلام، شهد له النبي بالجنة. تميز بعدله وفتوحات واسعة. استشهد وهو في المحراب. العبرة: العدل والجرأة في الحق."
+      },
+      { 
+        name: "عثمان بن عفان", icon: "fa-user",
+        birth: "بعد عام الفيل بـ 6 سنوات", death: "35 هـ",
+        battles: "هاجر الهجرتين، شهد بدراً وما بعدها",
+        story: "ذو النورين، جمع القرآن في مصحف واحد. كان كريماً جداً وجهز جيش العسرة. استشهد وهو صائم. العبرة: الحياء والكرم."
+      },
+      { 
+        name: "علي بن أبي طالب", icon: "fa-user",
+        birth: "قبل الهجرة بـ 23 عاماً", death: "40 هـ",
+        battles: "كل الغزوات إلا تبوك، قاتل في بدر وأحد والخندق",
+        story: "أول من أسلم من الصبيان، ابن عم النبي وزوج فاطمة. كان شجاعاً عالماً. استشهد في رمضان. العبرة: العلم والشجاعة."
+      },
+      { 
+        name: "طلحة بن عبيد الله", icon: "fa-user",
+        birth: "قبل الهجرة بـ 28 عاماً", death: "36 هـ",
+        battles: "شهد بدراً وأحداً (حماية النبي) والخندق",
+        story: "أحد العشرة المبشرين، كان كريماً جواداً، حمى النبي بأحد بيده. استشهد في الجمل. العبرة: الجود والتضحية."
+      },
+      { 
+        name: "الزبير بن العوام", icon: "fa-user",
+        birth: "قبل الهجرة بـ 28 عاماً", death: "36 هـ",
+        battles: "جميع الغزوات، فارس المسلمين",
+        story: "حواري رسول الله، أول من سل سيفه في الإسلام. استشهد في الجمل. العبرة: الشجاعة والفروسية."
+      },
+      { 
+        name: "عبد الرحمن بن عوف", icon: "fa-user",
+        birth: "قبل الهجرة بـ 30 عاماً", death: "32 هـ",
+        battles: "شهد بدراً وأحداً والخندق وكل المشاهد",
+        story: "أحد العشرة، من أغنياء الصحابة، أنفق ماله في سبيل الله. توفي عن 75 سنة. العبرة: استغلال المال في الخير."
+      },
+      { 
+        name: "سعد بن أبي وقاص", icon: "fa-user",
+        birth: "قبل الهجرة بـ 27 عاماً", death: "55 هـ",
+        battles: "شهد بدراً وأحداً، قائد فتح العراق",
+        story: "أحد العشرة، أول من رمى بسهم في الإسلام. فتح القادسية. العبرة: الدعوة المستجابة."
+      },
+      { 
+        name: "سعيد بن زيد", icon: "fa-user",
+        birth: "قبل الهجرة بـ 25 عاماً", death: "51 هـ",
+        battles: "شهد جميع الغزوات مع النبي",
+        story: "أحد العشرة المبشرين، أسلم قديماً، شهد اليرموك. توفي بالمدينة. العبرة: الثبات على الحق."
+      },
+      { 
+        name: "أبو عبيدة بن الجراح", icon: "fa-user",
+        birth: "قبل الهجرة بـ 25 عاماً", death: "18 هـ",
+        battles: "شهد بدراً وأحداً، وقاد فتح الشام",
+        story: "أمين الأمة، قال فيه النبي: لكل أمة أمين، وأمين هذه الأمة أبو عبيدة. توفي بطاعون عمواس. العبرة: الأمانة."
+      },
+      { 
+        name: "خالد بن الوليد", icon: "fa-user",
+        birth: "قبل الهجرة بـ 30 عاماً", death: "21 هـ",
+        battles: "أسلم بعد الحديبية، قاد معارك اليمامة واليرموك",
+        story: "سيف الله المسلول، لم يهزم في معركة. قال عند موته: لقد شهدت مائة معركة وما في جسدي شبر إلا وفيه ضربة. العبرة: القوة في الحق."
+      },
+      { 
+        name: "بلال بن رباح", icon: "fa-user",
+        birth: "قبل الهجرة بـ 43 عاماً", death: "20 هـ",
+        battles: "شهد بدراً وأحداً والخندق",
+        story: "مؤذن الرسول، كان عبداً حبشياً عذب في الله فأعتقه أبو بكر. قال النبي: إني لأسمع خشخشة نعلي بلال في الجنة. العبرة: الصبر على البلاء."
+      },
+      { 
+        name: "أبو هريرة", icon: "fa-user",
+        birth: "قبل الهجرة بـ 30 عاماً", death: "57 هـ",
+        battles: "أسلم بعد خيبر، شهد المشاهد بعدها",
+        story: "حافظ الصحابة، روى أكثر من 5000 حديث. لازم النبي ﷺ. العبرة: الحرص على العلم."
+      },
+      { 
+        name: "عائشة بنت أبي بكر", icon: "fa-user",
+        birth: "قبل الهجرة بـ 4 سنوات", death: "58 هـ",
+        battles: "شهدت غزوات كثيرة، حاملة علم الدين",
+        story: "أم المؤمنين، أفقه نساء الأمة، روت كثيراً من أحكام الدين. العبرة: العلم والدعوة."
+      },
+      { 
+        name: "أبو ذر الغفاري", icon: "fa-user",
+        birth: "قبل الهجرة بـ 40 عاماً", death: "32 هـ",
+        battles: "شهد غزوات كثيرة بعد إسلامه",
+        story: "من السابقين إلى الإسلام، معروف بزهده وصدقه، قال: لقد رأيتني وما على الأرض رجل أصدق لهجة من أبي ذر. العبرة: الزهد والصدق."
+      },
+      { 
+        name: "سلمان الفارسي", icon: "fa-user",
+        birth: "قبل الهجرة بـ 40 عاماً", death: "35 هـ",
+        battles: "شهد الخندق وما بعدها",
+        story: "باحث عن الحق من فارس إلى المدينة، صاحب فكرة حفر الخندق. قال النبي: سلمان منا أهل البيت. العبرة: البحث عن الحق."
+      },
+      { 
+        name: "عمار بن ياسر", icon: "fa-user",
+        birth: "قبل الهجرة بـ 33 عاماً", death: "37 هـ",
+        battles: "شهد بدراً وأحداً وجميع المشاهد",
+        story: "من السابقين الأولين، عذب مع والديه حتى استشهدت أمه. قال النبي: عمار تقتله الفئة الباغية. العبرة: الثبات على الإيمان."
+      },
+      { 
+        name: "عبد الله بن مسعود", icon: "fa-user",
+        birth: "قبل الهجرة بـ 25 عاماً", death: "32 هـ",
+        battles: "شهد بدراً وأحداً وجميع الغزوات",
+        story: "أول من جهر بالقرآن بمكة. كان من أعلم الصحابة بالقرآن. قال النبي: من أحب أن يقرأ القرآن غضاً كما أنزل فليقرأه على ابن مسعود. العبرة: تلاوة القرآن."
+      },
+      { 
+        name: "معاذ بن جبل", icon: "fa-user",
+        birth: "قبل الهجرة بـ 21 عاماً", death: "18 هـ",
+        battles: "شهد غزوات كثيرة بعد إسلامه",
+        story: "أعلم الأمة بالحلال والحرام، قال النبي: أعلم أمتي بالحلال والحرام معاذ بن جبل. العبرة: العلم الشرعي."
+      },
+      { 
+        name: "جابر بن عبد الله", icon: "fa-user",
+        birth: "قبل الهجرة بـ 16 عاماً", death: "78 هـ",
+        battles: "شهد بدراً مع والده، شهد المشاهد كلها",
+        story: "آخر من مات من الصحابة بالمدينة. روى كثيراً من الحديث. العبرة: طول العمر في طاعة الله."
+      }
+    ];
+
+    function renderCompanionsList() {
+      const container = document.getElementById("companionsList");
+      container.innerHTML = companionsData.map((comp, idx) => `
+        <button class="companion-btn" data-index="${idx}">
+          <i class="fas ${comp.icon}"></i> ${comp.name}
+        </button>
+      `).join('');
+      document.querySelectorAll(".companion-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".companion-btn").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          const idx = parseInt(btn.getAttribute("data-index"));
+          displayCompanionDetails(idx);
+        });
+      });
+      if (companionsData.length) {
+        document.querySelector(".companion-btn")?.classList.add("active");
+        displayCompanionDetails(0);
+      }
+    }
+
+    function displayCompanionDetails(index) {
+      const comp = companionsData[index];
+      const container = document.getElementById("storiesDisplay");
+      if (!comp) return;
+      container.innerHTML = `
+        <div class="story-item">
+          <h4><i class="fas fa-star-of-life"></i> ${comp.name} رضي الله عنه</h4>
+          <p class="detail"><i class="fas fa-calendar-alt"></i> الميلاد: ${comp.birth} | الوفاة: ${comp.death} هـ</p>
+          <p class="detail"><i class="fas fa-shield-alt"></i> الغزوات: ${comp.battles}</p>
+          <p><i class="fas fa-book-open"></i> <strong>قصة وعبرة:</strong> ${comp.story}</p>
+        </div>
+      `;
+    }
+
+    renderCompanionsList();
+  </script>
+</body>
+</html>

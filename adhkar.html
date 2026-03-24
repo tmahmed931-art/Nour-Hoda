@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>نور الهدى | أذكار الصباح والمساء</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="navbar">
+    <div class="container">
+      <div class="logo"><i class="fas fa-mosque"></i> نور الهدى</div>
+      <div class="nav-links">
+        <a href="index.html">الرئيسية</a>
+        <a href="prayer.html">الصلاة</a>
+        <a href="tasbih.html">تسبيح</a>
+        <a href="adhkar.html">الأذكار</a>
+        <a href="hadith.html">الحديث</a>
+        <a href="quran.html">المصحف</a>
+        <a href="companions.html">الصحابة</a>
+        <a href="knowledge.html">معلومات دينية</a>
+        <a href="newmuslim.html">جدد إسلامك</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <section id="adhkar">
+      <h2 class="section-title"><i class="fas fa-pray"></i> أذكار الصباح والمساء</h2>
+      <div class="adhkar-tabs">
+        <button class="tab-btn active" data-adhkar="morning">☀️ أذكار الصباح (10)</button>
+        <button class="tab-btn" data-adhkar="evening">🌙 أذكار المساء (10)</button>
+      </div>
+      <div id="adhkarContent" class="card"></div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p><i class="fas fa-heart"></i> تصميم وتطوير: <strong>Momo</strong> — نسأل الله النفع <i class="fas fa-hands-praying"></i></p>
+    </div>
+  </footer>
+
+  <script>
+    const morningAdhkar = [
+      "اللهم أنت ربي لا إله إلا أنت خلقتني وأنا عبدك وأنا على عهدك ووعدك ما استطعت، أعوذ بك من شر ما صنعت، أبوء لك بنعمتك عليَّ وأبوء بذنبي فاغفر لي فإنه لا يغفر الذنوب إلا أنت. (مرة واحدة) - (رواه البخاري)",
+      "اللهم بك أصبحنا وبك أمسينا وبك نحيا وبك نموت وإليك النشور. (مرة) - (رواه الترمذي)",
+      "أصبحنا على فطرة الإسلام وعلى كلمة الإخلاص وعلى دين نبينا محمد صلى الله عليه وسلم وعلى ملة أبينا إبراهيم حنيفاً مسلماً وما كان من المشركين. (مرة) - (رواه أحمد)",
+      "اللهم ما أصبح بي من نعمة أو بأحد من خلقك فمنك وحدك لا شريك لك، فلك الحمد ولك الشكر. (مرة) - (رواه أبو داود)",
+      "اللهم إني أسألك العافية في الدنيا والآخرة، اللهم إني أسألك العفو والعافية في ديني ودنياي وأهلي ومالي. (مرة) - (رواه أبو داود)",
+      "سبحان الله وبحمده عدد خلقه ورضا نفسه وزنة عرشه ومداد كلماته. (ثلاث مرات) - (رواه مسلم)",
+      "لا إله إلا الله وحده لا شريك له، له الملك وله الحمد وهو على كل شيء قدير. (مائة مرة أو عشر مرات) - (متفق عليه)",
+      "اللهم إني أسألك علماً نافعاً ورزقاً طيباً وعملاً متقبلاً. (مرة) - (رواه ابن ماجه)",
+      "رضيت بالله رباً وبالإسلام ديناً وبمحمد صلى الله عليه وسلم نبياً. (ثلاث مرات) - (رواه أبو داود)",
+      "حسبي الله لا إله إلا هو عليه توكلت وهو رب العرش العظيم. (سبع مرات) - (رواه أبو داود)"
+    ];
+    const eveningAdhkar = [
+      "اللهم أنت ربي لا إله إلا أنت خلقتني وأنا عبدك وأنا على عهدك ووعدك ما استطعت، أعوذ بك من شر ما صنعت، أبوء لك بنعمتك عليَّ وأبوء بذنبي فاغفر لي فإنه لا يغفر الذنوب إلا أنت. (مرة) - (رواه البخاري)",
+      "اللهم بك أمسينا وبك أصبحنا وبك نحيا وبك نموت وإليك المصير. (مرة) - (رواه الترمذي)",
+      "أمسينا على فطرة الإسلام وعلى كلمة الإخلاص وعلى دين نبينا محمد صلى الله عليه وسلم وعلى ملة أبينا إبراهيم حنيفاً مسلماً وما كان من المشركين. (مرة) - (رواه أحمد)",
+      "اللهم ما أمسى بي من نعمة أو بأحد من خلقك فمنك وحدك لا شريك لك، فلك الحمد ولك الشكر. (مرة) - (رواه أبو داود)",
+      "اللهم إني أسألك العافية في الدنيا والآخرة، اللهم إني أسألك العفو والعافية في ديني ودنياي وأهلي ومالي. (مرة) - (رواه أبو داود)",
+      "سبحان الله وبحمده عدد خلقه ورضا نفسه وزنة عرشه ومداد كلماته. (ثلاث مرات) - (رواه مسلم)",
+      "لا إله إلا الله وحده لا شريك له، له الملك وله الحمد وهو على كل شيء قدير. (مائة مرة أو عشر مرات) - (متفق عليه)",
+      "اللهم إني أسألك علماً نافعاً ورزقاً طيباً وعملاً متقبلاً. (مرة) - (رواه ابن ماجه)",
+      "رضيت بالله رباً وبالإسلام ديناً وبمحمد صلى الله عليه وسلم نبياً. (ثلاث مرات) - (رواه أبو داود)",
+      "حسبي الله لا إله إلا هو عليه توكلت وهو رب العرش العظيم. (سبع مرات) - (رواه أبو داود)"
+    ];
+
+    function renderAdhkar(type) {
+      const list = type === "morning" ? morningAdhkar : eveningAdhkar;
+      let html = `<ul class="adhkar-list">`;
+      list.forEach(dhikr => { html += `<li>📿 ${dhikr}</li>`; });
+      html += `</ul><p style="margin-top:12px"><i class="fas fa-redo-alt"></i> يفضل قراءة هذه الأذكار بعد صلاة الفجر (للصباح) وبعد صلاة العصر أو غروب الشمس (للمساء).</p>`;
+      document.getElementById("adhkarContent").innerHTML = html;
+    }
+    document.querySelectorAll(".tab-btn").forEach(btn => btn.addEventListener("click", () => {
+      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      renderAdhkar(btn.getAttribute("data-adhkar"));
+    }));
+    renderAdhkar("morning");
+  </script>
+</body>
+</html>
