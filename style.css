@@ -1,463 +1,367 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>نور الهدى | سبحة التسبيح</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* الأنماط كما هي من الكود الأصلي */
+    .tasbih-card {
+      background: linear-gradient(135deg, #fff, #f8f2e6);
+      text-align: center;
+      padding: 28px;
+    }
+    .dhikr-selector {
+      margin: 20px 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+    .dhikr-btn {
+      background: #e9e1d1;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .dhikr-btn.active {
+      background: var(--primary);
+      color: white;
+    }
+    .current-dhikr {
+      font-size: 1.3rem;
+      font-weight: bold;
+      margin: 15px 0;
+      color: var(--primary-dark);
+    }
+    .current-dhikr span {
+      background: #f0e8da;
+      padding: 6px 16px;
+      border-radius: 50px;
+    }
+    .secondary-counters {
+      background: #fefaf0;
+      border-radius: 28px;
+      padding: 20px;
+      margin-top: 30px;
+      text-align: right;
+    }
+    .counter-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 15px;
+      margin: 15px 0;
+    }
+    .counter-item {
+      background: white;
+      border-radius: 20px;
+      padding: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      border: 1px solid #e9dbc3;
+    }
+    .counter-label {
+      font-weight: bold;
+      color: var(--primary);
+      flex: 1;
+    }
+    .counter-value {
+      font-size: 1.2rem;
+      font-weight: bold;
+      min-width: 50px;
+      text-align: center;
+    }
+    .counter-actions button {
+      background: none;
+      border: none;
+      font-size: 1.1rem;
+      margin: 0 4px;
+      cursor: pointer;
+      color: var(--primary);
+    }
+    .info-section {
+      margin-top: 30px;
+      background: #eef4ea;
+      border-radius: 28px;
+      padding: 20px;
+      text-align: right;
+    }
+    .info-section h3 {
+      color: var(--primary-dark);
+      margin-bottom: 12px;
+    }
+    .info-section ul {
+      margin-right: 20px;
+    }
+    .info-section li {
+      margin-bottom: 8px;
+    }
+    .warning {
+      background: #fff2df;
+      border-right: 4px solid #b97f10;
+      padding: 12px;
+      margin-top: 15px;
+      border-radius: 16px;
+    }
+    footer .social-link {
+      color: var(--secondary);
+      text-decoration: none;
+      margin-right: 8px;
+      transition: 0.2s;
+    }
+    footer .social-link:hover {
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="container">
+      <div class="logo"><i class="fas fa-mosque"></i> نور الهدى</div>
+      <div class="nav-links">
+        <a href="index.html">الرئيسية</a>
+        <a href="prayer.html">الصلاة</a>
+        <a href="tasbih.html">تسبيح</a>
+        <a href="adhkar.html">الأذكار</a>
+        <a href="hadith.html">الحديث</a>
+        <a href="quran.html">المصحف</a>
+        <a href="companions.html">الصحابة</a>
+        <a href="knowledge.html">معلومات دينية</a>
+        <a href="newmuslim.html">جدد إسلامك</a>
+      </div>
+    </div>
+  </div>
 
-body {
-  font-family: 'Cairo', sans-serif;
-  background: #fefaf5;
-  color: #2c3e2f;
-  line-height: 1.6;
-  scroll-behavior: smooth;
-}
+  <div class="container">
+    <section id="tasbih">
+      <h2 class="section-title"><i class="fas fa-praying-hands"></i> سبحة التسبيح</h2>
+      <div class="card tasbih-card">
+        <div class="tasbih-counter" id="tasbihCount">0</div>
+        <div class="tasbih-buttons">
+          <button class="tasbih-btn" id="incrementBtn"><i class="fas fa-plus-circle"></i> زيادة</button>
+          <button class="tasbih-btn decrement" id="decrementBtn"><i class="fas fa-minus-circle"></i> نقصان</button>
+          <button class="tasbih-btn" id="add33Btn">➕ 33</button>
+          <button class="tasbih-btn reset" id="resetTasbihBtn"><i class="fas fa-trash-alt"></i> إعادة تعيين</button>
+        </div>
+        <p style="margin-top: 20px;"><i class="fas fa-star-of-life"></i> العداد الرئيسي لأي ذكر تختاره</p>
 
-:root {
-  --primary: #2a6e3b;
-  --primary-dark: #1e4f2a;
-  --secondary: #d4af37;
-  --soft-bg: #fff8ed;
-  --card-bg: #ffffff;
-  --border-light: #e9dbc3;
-  --mushaf-bg: #fef7e8;
-  --mushaf-border: #dac292;
-}
+        <div class="dhikr-selector">
+          <button class="dhikr-btn active" data-dhikr="subhanallah">سبحان الله</button>
+          <button class="dhikr-btn" data-dhikr="alhamdulillah">الحمد لله</button>
+          <button class="dhikr-btn" data-dhikr="allahuakbar">الله أكبر</button>
+          <button class="dhikr-btn" data-dhikr="la-ilaha-illallah">لا إله إلا الله</button>
+          <button class="dhikr-btn" data-dhikr="astaghfirullah">أستغفر الله</button>
+          <button class="dhikr-btn" data-dhikr="salawat">اللهم صل على محمد</button>
+        </div>
+        <div class="current-dhikr">
+          <span id="currentDhikrText">سبحان الله</span>
+        </div>
+        <p style="font-size: 0.9rem;">يتم زيادة العداد الرئيسي بالذكر المختار، أو يمكنك استخدام العدادات المنفصلة لكل ذكر أدناه.</p>
+      </div>
 
-.container {
-  max-width: 1300px;
-  margin: 0 auto;
-  padding: 0 24px;
-}
+      <div class="secondary-counters">
+        <h3><i class="fas fa-list-ul"></i> عدادات الأذكار المنفصلة</h3>
+        <div class="counter-grid" id="countersContainer"></div>
+        <p style="margin-top: 10px; font-size: 0.85rem;">اضغط على + أو 33 لزيادة العداد الخاص بكل ذكر. العداد الرئيسي يتأثر أيضاً عند اختيار الذكر من القائمة أعلاه.</p>
+      </div>
 
-.navbar {
-  background: var(--primary);
-  padding: 18px 0;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-.navbar .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 15px;
-}
-.logo {
-  font-size: 1.8rem;
-  font-weight: 800;
-  color: var(--secondary);
-}
-.logo i {
-  color: white;
-  margin-left: 8px;
-}
-.nav-links {
-  display: flex;
-  gap: 25px;
-  flex-wrap: wrap;
-}
-.nav-links a {
-  color: white;
-  text-decoration: none;
-  font-weight: 500;
-  transition: 0.2s;
-}
-.nav-links a:hover {
-  color: var(--secondary);
-}
+      <div class="info-section">
+        <h3><i class="fas fa-info-circle"></i> فضل التسبيح والأذكار</h3>
+        <ul>
+          <li><strong>سبحان الله</strong> – تسبيح الله وتنزيهه عن كل نقص، وهي من أحب الكلام إلى الله.</li>
+          <li><strong>الحمد لله</strong> – شكر الله على نعمه، وتملأ الميزان.</li>
+          <li><strong>الله أكبر</strong> – تعظيم الله وإجلاله.</li>
+          <li><strong>لا إله إلا الله</strong> – أفضل الذكر، وهي كلمة التوحيد.</li>
+          <li><strong>أستغفر الله</strong> – طلب المغفرة، سبب لدخول الجنة ودفع البلاء.</li>
+          <li><strong>اللهم صل على محمد</strong> – الصلاة على النبي ﷺ، من صلى عليه مرة صلى الله عليه بها عشراً.</li>
+        </ul>
+        <h3><i class="fas fa-hands-praying"></i> آداب التسبيح</h3>
+        <ul>
+          <li>يستحب أن يكون الذكر بخشوع وحضور قلب.</li>
+          <li>يستحب استعمال السبحة (العداد) أو الأنامل (العقد بالأصابع).</li>
+          <li>لا يشترط عدد محدد، لكن الأفضل المداومة على ورد يومي.</li>
+          <li>يمكن التسبيح في أي وقت إلا الأوقات المنهي عنها (بعد الفجر حتى الشروق، وبعد العصر حتى المغرب).</li>
+        </ul>
+        <div class="warning">
+          <i class="fas fa-exclamation-triangle"></i> <strong>تنبيه:</strong> لا يُشرع التسبيح بأعداد محددة لم يرد بها نص (مثل 1000 مرة بنية معينة). الأفضل اتباع الأذكار الواردة في السنة، مثل تسبيح الصباح والمساء، وتسبيح دبر الصلوات، وأذكار النوم وغيرها.
+        </div>
+      </div>
+    </section>
+  </div>
 
-.hero {
-  background: linear-gradient(135deg, #f4f0e6, #e6f0e8);
-  padding: 60px 0 40px;
-  text-align: center;
-  border-bottom: 3px solid var(--secondary);
-}
-.hero h1 {
-  font-size: 2.5rem;
-  color: var(--primary-dark);
-  margin-bottom: 12px;
-}
-.hero p {
-  font-size: 1.2rem;
-  color: #3b5e3b;
-}
+  <footer>
+    <div class="container">
+      <p>
+        <i class="fas fa-heart"></i> تصميم وتطوير: <strong>محمد</strong> — نسأل الله النفع <i class="fas fa-hands-praying"></i>
+      </p>
+      <p style="margin-top: 10px; font-size: 0.9rem;">
+        <i class="fab fa-instagram"></i> 
+        <a href="https://www.instagram.com/_elmo_taha/?hl=ar" target="_blank" class="social-link">@_elmo_taha</a>
+      </p>
+    </div>
+  </footer>
 
-.prayer-card {
-  background: var(--card-bg);
-  border-radius: 32px;
-  padding: 28px;
-  margin: 40px 0 20px;
-  border: 1px solid var(--border-light);
-  box-shadow: 0 20px 30px -12px rgba(0,0,0,0.1);
-}
-.prayer-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 20px;
-}
-.city-selector {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-.city-selector input,
-.city-selector button {
-  padding: 8px 16px;
-  border-radius: 40px;
-  border: 1px solid #ddd;
-  font-family: inherit;
-}
-.city-selector button {
-  background: var(--primary);
-  color: white;
-  border: none;
-  cursor: pointer;
-  font-weight: 600;
-}
+  <script>
+    // تعريف الأذكار
+    const dhikrList = [
+      { id: "subhanallah", text: "سبحان الله", short: "سبحان الله" },
+      { id: "alhamdulillah", text: "الحمد لله", short: "الحمد لله" },
+      { id: "allahuakbar", text: "الله أكبر", short: "الله أكبر" },
+      { id: "la-ilaha-illallah", text: "لا إله إلا الله", short: "لا إله إلا الله" },
+      { id: "astaghfirullah", text: "أستغفر الله", short: "أستغفر الله" },
+      { id: "salawat", text: "اللهم صل على محمد", short: "اللهم صل على محمد" }
+    ];
 
-.prayer-times-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  gap: 18px;
-  text-align: center;
-  margin: 20px 0;
-}
-.prayer-item {
-  background: #f9f5ed;
-  padding: 14px 6px;
-  border-radius: 24px;
-  font-weight: 600;
-}
-.prayer-name {
-  font-size: 1.1rem;
-  color: var(--primary);
-}
-.prayer-time {
-  font-size: 1.3rem;
-  font-weight: 700;
-  margin-top: 6px;
-}
-.next-prayer {
-  background: var(--primary-dark);
-  color: white;
-  padding: 14px;
-  border-radius: 40px;
-  text-align: center;
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin-top: 20px;
-}
+    // بيانات العدادات
+    let counters = {};
+    dhikrList.forEach(d => { counters[d.id] = 0; });
+    let mainCounter = 0;
+    let currentDhikrId = "subhanallah";
 
-section {
-  padding: 60px 0;
-  border-bottom: 1px solid var(--border-light);
-}
-.section-title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--primary-dark);
-  margin-bottom: 20px;
-  position: relative;
-  display: inline-block;
-}
-.section-title:after {
-  content: '';
-  position: absolute;
-  bottom: -8px;
-  right: 0;
-  width: 60%;
-  height: 3px;
-  background: var(--secondary);
-}
+    // عناصر DOM
+    const mainCountSpan = document.getElementById("tasbihCount");
+    const currentDhikrSpan = document.getElementById("currentDhikrText");
+    const countersContainer = document.getElementById("countersContainer");
 
-.grid-2 {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
-  margin-top: 30px;
-}
+    // تحديث واجهة العداد الرئيسي
+    function updateMainDisplay() {
+      mainCountSpan.innerText = mainCounter;
+    }
 
-.card {
-  background: var(--card-bg);
-  border-radius: 28px;
-  padding: 24px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-  border: 1px solid #f0e4d0;
-  transition: 0.2s;
-}
-.card:hover {
-  transform: translateY(-5px);
-}
+    // تحديث عداد فردي
+    function updateCounterDisplay(id) {
+      const span = document.getElementById(`counter-${id}`);
+      if (span) span.innerText = counters[id];
+    }
 
-.hadith-box {
-  background: #f4f0e2;
-  border-right: 6px solid var(--secondary);
-  padding: 28px;
-  border-radius: 28px;
-  font-size: 1.2rem;
-  margin: 20px 0;
-}
+    // حفظ البيانات في localStorage
+    function saveData() {
+      const data = {
+        main: mainCounter,
+        counters: counters,
+        currentDhikr: currentDhikrId
+      };
+      localStorage.setItem("tasbihData", JSON.stringify(data));
+    }
 
-.btn-refresh {
-  background: var(--primary);
-  border: none;
-  padding: 8px 24px;
-  border-radius: 30px;
-  color: white;
-  cursor: pointer;
-  font-weight: 600;
-  margin-top: 15px;
-}
+    // تحميل البيانات
+    function loadData() {
+      const saved = localStorage.getItem("tasbihData");
+      if (saved) {
+        try {
+          const data = JSON.parse(saved);
+          mainCounter = data.main || 0;
+          counters = data.counters || counters;
+          currentDhikrId = data.currentDhikr || "subhanallah";
+          updateMainDisplay();
+          for (let id in counters) {
+            updateCounterDisplay(id);
+          }
+          setCurrentDhikr(currentDhikrId);
+        } catch(e) {}
+      }
+    }
 
-.adhkar-tabs {
-  display: flex;
-  gap: 20px;
-  margin-bottom: 30px;
-}
-.tab-btn {
-  background: #e9e1d1;
-  border: none;
-  padding: 10px 28px;
-  border-radius: 40px;
-  font-weight: 600;
-  cursor: pointer;
-}
-.tab-btn.active {
-  background: var(--primary);
-  color: white;
-}
-.adhkar-list {
-  list-style: none;
-}
-.adhkar-list li {
-  background: white;
-  margin-bottom: 14px;
-  padding: 16px 20px;
-  border-radius: 40px;
-  border: 1px solid var(--border-light);
-  font-size: 1rem;
-  line-height: 1.6;
-}
+    // إضافة إلى العداد الرئيسي والعداد المنفصل للذكر الحالي
+    function addToMain(amount) {
+      if (amount < 0 && mainCounter + amount < 0) return;
+      mainCounter += amount;
+      counters[currentDhikrId] += amount;
+      updateMainDisplay();
+      updateCounterDisplay(currentDhikrId);
+      saveData();
+    }
 
-.tracker-btn {
-  background: #e9e1d1;
-  border: none;
-  padding: 12px 10px;
-  border-radius: 60px;
-  font-weight: bold;
-  cursor: pointer;
-  width: 100%;
-}
-.tracker-btn.completed {
-  background: var(--primary);
-  color: white;
-}
+    // إعادة تعيين العداد الرئيسي
+    function resetMain() {
+      mainCounter = 0;
+      updateMainDisplay();
+      saveData();
+    }
 
-.wudu-steps {
-  list-style: none;
-  padding-right: 0;
-}
-.wudu-steps li {
-  margin-bottom: 12px;
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-}
-.wudu-steps li i {
-  color: var(--primary);
-  width: 24px;
-}
+    // تغيير الذكر الحالي
+    function setCurrentDhikr(id) {
+      currentDhikrId = id;
+      const dhikr = dhikrList.find(d => d.id === id);
+      currentDhikrSpan.innerText = dhikr ? dhikr.text : "سبحان الله";
+      document.querySelectorAll(".dhikr-btn").forEach(btn => {
+        btn.classList.remove("active");
+        if (btn.getAttribute("data-dhikr") === id) btn.classList.add("active");
+      });
+      saveData();
+    }
 
-.tasbih-card {
-  text-align: center;
-  background: linear-gradient(135deg, #fff, #f8f2e6);
-}
-.tasbih-counter {
-  font-size: 5rem;
-  font-weight: 800;
-  color: var(--primary-dark);
-  background: #f0e8da;
-  display: inline-block;
-  padding: 20px 40px;
-  border-radius: 80px;
-  margin: 20px 0;
-}
-.tasbih-buttons {
-  display: flex;
-  gap: 15px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-.tasbih-btn {
-  background: var(--primary);
-  color: white;
-  border: none;
-  padding: 12px 28px;
-  border-radius: 50px;
-  font-weight: bold;
-  cursor: pointer;
-}
-.tasbih-btn.reset {
-  background: #b97f10;
-}
+    // عرض العدادات المنفصلة
+    function renderCounters() {
+      let html = "";
+      dhikrList.forEach(d => {
+        html += `
+          <div class="counter-item">
+            <div class="counter-label">${d.text}</div>
+            <div class="counter-value" id="counter-${d.id}">${counters[d.id]}</div>
+            <div class="counter-actions">
+              <button class="inc-single" data-id="${d.id}"><i class="fas fa-plus-circle"></i></button>
+              <button class="inc33-single" data-id="${d.id}">33</button>
+              <button class="reset-single" data-id="${d.id}"><i class="fas fa-undo-alt"></i></button>
+            </div>
+          </div>
+        `;
+      });
+      countersContainer.innerHTML = html;
 
-.quran-container {
-  background: var(--mushaf-bg);
-  border-radius: 28px;
-  padding: 24px;
-  border: 1px solid var(--mushaf-border);
-  font-family: 'Amiri', serif;
-}
-.search-box {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-}
-.search-box input {
-  flex: 1;
-  padding: 10px 16px;
-  border-radius: 40px;
-  border: 1px solid var(--mushaf-border);
-  font-family: 'Cairo', sans-serif;
-  font-size: 1rem;
-}
-.search-box button {
-  background: var(--primary);
-  color: white;
-  border: none;
-  padding: 8px 20px;
-  border-radius: 40px;
-  cursor: pointer;
-  font-weight: 600;
-}
-.sura-select {
-  width: 100%;
-  padding: 12px 20px;
-  border-radius: 50px;
-  border: 1px solid var(--mushaf-border);
-  font-family: 'Cairo', sans-serif;
-  font-size: 1rem;
-  background: white;
-  margin-bottom: 20px;
-}
-.verses-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px 30px;
-}
-.ayah-item {
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-  background: rgba(255,250,235,0.5);
-  padding: 8px 12px;
-  border-radius: 16px;
-}
-.ayah-text {
-  font-size: 1.2rem;
-  line-height: 1.6;
-  color: #2c3e2f;
-  flex: 1;
-}
-.ayah-number {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: 28px;
-  height: 28px;
-  background: var(--secondary);
-  color: var(--primary-dark);
-  border-radius: 50%;
-  font-size: 0.8rem;
-  font-weight: bold;
-  font-family: 'Cairo', sans-serif;
-  flex-shrink: 0;
-}
+      // ربط أحداث العدادات المنفصلة
+      document.querySelectorAll(".inc-single").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const id = btn.getAttribute("data-id");
+          counters[id]++;
+          updateCounterDisplay(id);
+          saveData();
+        });
+      });
+      document.querySelectorAll(".inc33-single").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const id = btn.getAttribute("data-id");
+          counters[id] += 33;
+          updateCounterDisplay(id);
+          saveData();
+        });
+      });
+      document.querySelectorAll(".reset-single").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const id = btn.getAttribute("data-id");
+          counters[id] = 0;
+          updateCounterDisplay(id);
+          saveData();
+        });
+      });
+    }
 
-.islam-basics {
-  background: #eef4ea;
-  border-radius: 28px;
-  padding: 24px;
-}
+    // ربط أزرار العداد الرئيسي (مرة واحدة)
+    document.getElementById("incrementBtn").addEventListener("click", () => addToMain(1));
+    document.getElementById("decrementBtn").addEventListener("click", () => addToMain(-1));
+    document.getElementById("add33Btn").addEventListener("click", () => addToMain(33));
+    document.getElementById("resetTasbihBtn").addEventListener("click", () => resetMain());
 
-footer {
-  background: #1f3b2c;
-  color: #e9dbc3;
-  padding: 40px 0;
-  text-align: center;
-}
-footer p {
-  font-size: 1.1rem;
-}
-footer i {
-  color: var(--secondary);
-}
+    // ربط أزرار اختيار الذكر
+    document.querySelectorAll(".dhikr-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const dhikrId = btn.getAttribute("data-dhikr");
+        setCurrentDhikr(dhikrId);
+      });
+    });
 
-.companions-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  justify-content: center;
-  margin-bottom: 30px;
-}
-.companion-btn {
-  background: #e9e1d1;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 60px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.2s;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.companion-btn i {
-  font-size: 1.2rem;
-}
-.companion-btn.active {
-  background: var(--primary);
-  color: white;
-}
-.stories-display {
-  background: var(--card-bg);
-  border-radius: 28px;
-  padding: 24px;
-  border: 1px solid var(--border-light);
-  min-height: 300px;
-}
-.story-item {
-  margin-bottom: 24px;
-  border-bottom: 1px dashed var(--border-light);
-  padding-bottom: 16px;
-}
-.story-item:last-child {
-  border-bottom: none;
-}
-.story-item h4 {
-  color: var(--primary);
-  font-size: 1.3rem;
-  margin-bottom: 8px;
-}
-
-@media (max-width: 700px) {
-  .navbar .container {
-    flex-direction: column;
-  }
-  .prayer-times-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .verses-grid {
-    grid-template-columns: 1fr;
-  }
-  .tasbih-counter {
-    font-size: 3rem;
-    padding: 12px 24px;
-  }
-}
+    // تهيئة الصفحة
+    renderCounters();
+    loadData();
+  </script>
+</body>
+</html>
