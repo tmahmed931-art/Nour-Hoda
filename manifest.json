@@ -1,0 +1,21 @@
+{
+  "name": "Nour El Hoda",
+  "short_name": "Nour",
+  "description": "موقع شامل للأذكار، الصلاة، القرآن، والأحاديث النبوية",
+  "start_url": "/Nour-Hoda/index.html",
+  "display": "standalone",
+  "theme_color": "#4caf50",
+  "background_color": "#ffffff",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
