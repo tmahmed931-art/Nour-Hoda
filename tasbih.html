@@ -6,12 +6,107 @@
   <title>نور الهدى | سبحة التسبيح</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
   <style>
+    :root {
+      --primary: #2e7d64;
+      --primary-dark: #1e5a48;
+      --secondary: #e8b86b;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: #fef9ef;
+      color: #2c3e2f;
+      line-height: 1.6;
+    }
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .navbar {
+      background: var(--primary);
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .navbar .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: white;
+    }
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      margin: 0 8px;
+      font-weight: 500;
+      transition: 0.2s;
+    }
+    .nav-links a:hover {
+      color: var(--secondary);
+    }
+    .section-title {
+      font-size: 1.8rem;
+      margin: 30px 0 20px;
+      border-right: 5px solid var(--primary);
+      padding-right: 15px;
+    }
+    .card {
+      background: white;
+      border-radius: 28px;
+      padding: 25px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+      margin-bottom: 30px;
+    }
     .tasbih-card {
       background: linear-gradient(135deg, #fff, #f8f2e6);
       text-align: center;
       padding: 28px;
+    }
+    .tasbih-counter {
+      font-size: 4rem;
+      font-weight: bold;
+      color: var(--primary);
+      background: #f0e8da;
+      display: inline-block;
+      padding: 15px 40px;
+      border-radius: 60px;
+      margin-bottom: 20px;
+    }
+    .tasbih-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin: 20px 0;
+    }
+    .tasbih-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 40px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .tasbih-btn.decrement {
+      background: #b87c4a;
+    }
+    .tasbih-btn.reset {
+      background: #8b5a2b;
     }
     .dhikr-selector {
       margin: 20px 0;
@@ -111,6 +206,28 @@
       margin-top: 15px;
       border-radius: 16px;
     }
+    footer {
+      background: #e2d8c4;
+      text-align: center;
+      padding: 20px 0;
+      margin-top: 40px;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 768px) {
+      .navbar .container {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .nav-links a {
+        margin: 5px;
+        font-size: 0.85rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -135,7 +252,6 @@
     <section id="tasbih">
       <h2 class="section-title"><i class="fas fa-praying-hands"></i> سبحة التسبيح</h2>
       <div class="card tasbih-card">
-        <!-- العداد الرئيسي -->
         <div class="tasbih-counter" id="tasbihCount">0</div>
         <div class="tasbih-buttons">
           <button class="tasbih-btn" id="incrementBtn"><i class="fas fa-plus-circle"></i> زيادة</button>
@@ -145,7 +261,6 @@
         </div>
         <p style="margin-top: 20px;"><i class="fas fa-star-of-life"></i> العداد الرئيسي لأي ذكر تختاره</p>
 
-        <!-- اختيار نوع الذكر -->
         <div class="dhikr-selector">
           <button class="dhikr-btn active" data-dhikr="subhanallah">سبحان الله</button>
           <button class="dhikr-btn" data-dhikr="alhamdulillah">الحمد لله</button>
@@ -160,16 +275,12 @@
         <p style="font-size: 0.9rem;">يتم زيادة العداد الرئيسي بالذكر المختار، أو يمكنك استخدام العدادات المنفصلة لكل ذكر أدناه.</p>
       </div>
 
-      <!-- عدادات منفصلة لكل ذكر -->
       <div class="secondary-counters">
         <h3><i class="fas fa-list-ul"></i> عدادات الأذكار المنفصلة</h3>
-        <div class="counter-grid" id="countersContainer">
-          <!-- سيتم إضافتها بواسطة JS -->
-        </div>
+        <div class="counter-grid" id="countersContainer"></div>
         <p style="margin-top: 10px; font-size: 0.85rem;">اضغط على + أو 33 لزيادة العداد الخاص بكل ذكر. العداد الرئيسي يتأثر أيضاً عند اختيار الذكر من القائمة أعلاه.</p>
       </div>
 
-      <!-- معلومات عن التسبيح -->
       <div class="info-section">
         <h3><i class="fas fa-info-circle"></i> فضل التسبيح والأذكار</h3>
         <ul>
@@ -201,7 +312,7 @@
   </footer>
 
   <script>
-    // تعريف الأذكار ونصوصها
+    // تعريف الأذكار
     const dhikrList = [
       { id: "subhanallah", text: "سبحان الله", short: "سبحان الله" },
       { id: "alhamdulillah", text: "الحمد لله", short: "الحمد لله" },
@@ -211,11 +322,9 @@
       { id: "salawat", text: "اللهم صل على محمد", short: "اللهم صل على محمد" }
     ];
 
-    // تخزين قيم العدادات المنفصلة
+    // بيانات العدادات
     let counters = {};
     dhikrList.forEach(d => { counters[d.id] = 0; });
-
-    // العداد الرئيسي
     let mainCounter = 0;
     let currentDhikrId = "subhanallah";
 
@@ -229,108 +338,13 @@
       mainCountSpan.innerText = mainCounter;
     }
 
-    // تحديث جميع العدادات المنفصلة في الشاشة
-    function renderCounters() {
-      let html = "";
-      dhikrList.forEach(d => {
-        html += `
-          <div class="counter-item">
-            <div class="counter-label">${d.text}</div>
-            <div class="counter-value" id="counter-${d.id}">${counters[d.id]}</div>
-            <div class="counter-actions">
-              <button class="inc-single" data-id="${d.id}"><i class="fas fa-plus-circle"></i></button>
-              <button class="inc33-single" data-id="${d.id}">33</button>
-              <button class="reset-single" data-id="${d.id}"><i class="fas fa-undo-alt"></i></button>
-            </div>
-          </div>
-        `;
-      });
-      countersContainer.innerHTML = html;
-
-      // ربط الأحداث للأزرار الجديدة
-      document.querySelectorAll(".inc-single").forEach(btn => {
-        btn.addEventListener("click", (e) => {
-          const id = btn.getAttribute("data-id");
-          counters[id]++;
-          updateCounterDisplay(id);
-        });
-      });
-      document.querySelectorAll(".inc33-single").forEach(btn => {
-        btn.addEventListener("click", (e) => {
-          const id = btn.getAttribute("data-id");
-          counters[id] += 33;
-          updateCounterDisplay(id);
-        });
-      });
-      document.querySelectorAll(".reset-single").forEach(btn => {
-        btn.addEventListener("click", (e) => {
-          const id = btn.getAttribute("data-id");
-          counters[id] = 0;
-          updateCounterDisplay(id);
-        });
-      });
-    }
-
+    // تحديث عداد فردي
     function updateCounterDisplay(id) {
       const span = document.getElementById(`counter-${id}`);
       if (span) span.innerText = counters[id];
     }
 
-    // إضافة إلى العداد الرئيسي بناءً على الذكر الحالي
-    function addToMain(amount) {
-      mainCounter += amount;
-      updateMainDisplay();
-      // اختياري: يمكن أيضاً تحديث العداد المنفصل للذكر الحالي
-      counters[currentDhikrId] += amount;
-      updateCounterDisplay(currentDhikrId);
-    }
-
-    // إعادة تعيين العداد الرئيسي
-    function resetMain() {
-      mainCounter = 0;
-      updateMainDisplay();
-    }
-
-    // تغيير الذكر الحالي
-    function setCurrentDhikr(id) {
-      currentDhikrId = id;
-      const dhikr = dhikrList.find(d => d.id === id);
-      currentDhikrSpan.innerText = dhikr ? dhikr.text : "سبحان الله";
-      // تمييز الزر النشط
-      document.querySelectorAll(".dhikr-btn").forEach(btn => {
-        btn.classList.remove("active");
-        if (btn.getAttribute("data-dhikr") === id) btn.classList.add("active");
-      });
-    }
-
-    // ربط أزرار العداد الرئيسي
-    document.getElementById("incrementBtn").addEventListener("click", () => {
-      addToMain(1);
-    });
-    document.getElementById("decrementBtn").addEventListener("click", () => {
-      if (mainCounter > 0) addToMain(-1);
-    });
-    document.getElementById("add33Btn").addEventListener("click", () => {
-      addToMain(33);
-    });
-    document.getElementById("resetTasbihBtn").addEventListener("click", () => {
-      resetMain();
-    });
-
-    // ربط أزرار اختيار الذكر
-    document.querySelectorAll(".dhikr-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const dhikrId = btn.getAttribute("data-dhikr");
-        setCurrentDhikr(dhikrId);
-      });
-    });
-
-    // تهيئة الصفحة
-    renderCounters();
-    setCurrentDhikr("subhanallah");
-    updateMainDisplay();
-
-    // حفظ البيانات في localStorage (اختياري)
+    // حفظ البيانات في localStorage
     function saveData() {
       const data = {
         main: mainCounter,
@@ -340,6 +354,7 @@
       localStorage.setItem("tasbihData", JSON.stringify(data));
     }
 
+    // تحميل البيانات
     function loadData() {
       const saved = localStorage.getItem("tasbihData");
       if (saved) {
@@ -357,56 +372,97 @@
       }
     }
 
-    // حفظ تلقائي عند كل تغيير
-    function autoSave() {
+    // إضافة إلى العداد الرئيسي والعداد المنفصل للذكر الحالي
+    function addToMain(amount) {
+      if (amount < 0 && mainCounter + amount < 0) return; // منع السالب
+      mainCounter += amount;
+      counters[currentDhikrId] += amount;
+      updateMainDisplay();
+      updateCounterDisplay(currentDhikrId);
+      saveData(); // حفظ تلقائي
+    }
+
+    // إعادة تعيين العداد الرئيسي
+    function resetMain() {
+      mainCounter = 0;
+      updateMainDisplay();
       saveData();
     }
 
-    // ربط الحفظ بعد كل تغيير
-    const originalAddToMain = addToMain;
-    window.addToMain = function(amount) {
-      originalAddToMain(amount);
-      autoSave();
-    };
-    // إعادة تعريف addToMain مع الحفظ
-    addToMain = function(amount) {
-      mainCounter += amount;
-      updateMainDisplay();
-      counters[currentDhikrId] += amount;
-      updateCounterDisplay(currentDhikrId);
-      autoSave();
-    };
-    // إعادة تعريف resetMain مع الحفظ
-    resetMain = function() {
-      mainCounter = 0;
-      updateMainDisplay();
-      autoSave();
-    };
-    // ربط الأزرار مرة أخرى بعد إعادة التعريف
-    document.getElementById("incrementBtn").onclick = () => addToMain(1);
-    document.getElementById("decrementBtn").onclick = () => { if (mainCounter > 0) addToMain(-1); };
-    document.getElementById("add33Btn").onclick = () => addToMain(33);
-    document.getElementById("resetTasbihBtn").onclick = () => resetMain();
+    // تغيير الذكر الحالي
+    function setCurrentDhikr(id) {
+      currentDhikrId = id;
+      const dhikr = dhikrList.find(d => d.id === id);
+      currentDhikrSpan.innerText = dhikr ? dhikr.text : "سبحان الله";
+      document.querySelectorAll(".dhikr-btn").forEach(btn => {
+        btn.classList.remove("active");
+        if (btn.getAttribute("data-dhikr") === id) btn.classList.add("active");
+      });
+      saveData();
+    }
 
-    // ربط العدادات المنفصلة بالحفظ
-    function attachSingleSave() {
-      document.querySelectorAll(".inc-single, .inc33-single, .reset-single").forEach(btn => {
-        btn.addEventListener("click", () => autoSave());
+    // عرض العدادات المنفصلة مع أزرارها
+    function renderCounters() {
+      let html = "";
+      dhikrList.forEach(d => {
+        html += `
+          <div class="counter-item">
+            <div class="counter-label">${d.text}</div>
+            <div class="counter-value" id="counter-${d.id}">${counters[d.id]}</div>
+            <div class="counter-actions">
+              <button class="inc-single" data-id="${d.id}"><i class="fas fa-plus-circle"></i></button>
+              <button class="inc33-single" data-id="${d.id}">33</button>
+              <button class="reset-single" data-id="${d.id}"><i class="fas fa-undo-alt"></i></button>
+            </div>
+          </div>
+        `;
+      });
+      countersContainer.innerHTML = html;
+
+      // ربط أحداث العدادات المنفصلة
+      document.querySelectorAll(".inc-single").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          const id = btn.getAttribute("data-id");
+          counters[id]++;
+          updateCounterDisplay(id);
+          saveData();
+        });
+      });
+      document.querySelectorAll(".inc33-single").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          const id = btn.getAttribute("data-id");
+          counters[id] += 33;
+          updateCounterDisplay(id);
+          saveData();
+        });
+      });
+      document.querySelectorAll(".reset-single").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          const id = btn.getAttribute("data-id");
+          counters[id] = 0;
+          updateCounterDisplay(id);
+          saveData();
+        });
       });
     }
-    // إعادة ربط بعد إعادة رسم العدادات
-    const originalRender = renderCounters;
-    window.renderCounters = function() {
-      originalRender();
-      attachSingleSave();
-    };
-    renderCounters = function() {
-      originalRender();
-      attachSingleSave();
-    };
+
+    // ربط أزرار العداد الرئيسي (مرة واحدة فقط)
+    document.getElementById("incrementBtn").addEventListener("click", () => addToMain(1));
+    document.getElementById("decrementBtn").addEventListener("click", () => addToMain(-1));
+    document.getElementById("add33Btn").addEventListener("click", () => addToMain(33));
+    document.getElementById("resetTasbihBtn").addEventListener("click", () => resetMain());
+
+    // ربط أزرار اختيار الذكر
+    document.querySelectorAll(".dhikr-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const dhikrId = btn.getAttribute("data-dhikr");
+        setCurrentDhikr(dhikrId);
+      });
+    });
+
+    // تهيئة الصفحة
     renderCounters();
-    attachSingleSave();
-    loadData();
+    loadData();    // تحميل أي بيانات محفوظة
   </script>
 </body>
 </html>
